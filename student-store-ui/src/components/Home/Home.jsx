@@ -1,10 +1,14 @@
 import * as React from "react"
 import "./Home.css"
 
-export default function Home() {
+import Hero from "../Hero/Hero"
+import ProductGrid from "../ProductGrid/ProductGrid"
+
+export default function Home(props) {
   return (
     <div className="home">
-      <p>Home</p>
+      <Hero />
+      <ProductGrid products={props.products} handleAddItemToCart={props.handleAddItemToCart} handleRemoveItemToCart={props.handleRemoveItemToCart}/>
     </div>
   )
 }
