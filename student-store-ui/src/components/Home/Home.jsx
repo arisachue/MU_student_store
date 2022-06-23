@@ -8,7 +8,7 @@ export default function Home(props) {
   return (
     <div className="home">
       <Hero />
-      <ProductGrid products={props.products} handleAddItemToCart={props.handleAddItemToCart} handleRemoveItemToCart={props.handleRemoveItemToCart}/>
+      <ProductGrid products={props.products} shoppingCart={props.shoppingCart} handleAddItemToCart={props.handleAddItemToCart} handleRemoveItemToCart={props.handleRemoveItemToCart}/>
     </div>
   )
 }

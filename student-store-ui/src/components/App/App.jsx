@@ -6,6 +6,7 @@ import ProductDetail from "../ProductDetail/ProductDetail"
 import NotFound from "../NotFound/NotFound"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { useState, useEffect } from "react"
+import axios from 'axios';
 import "./App.css"
 
 export default function App() {
@@ -24,8 +25,10 @@ export default function App() {
   const [checkoutForm, setCheckoutForm] = useState(basicUser)
 
   useEffect(() => {
+    console.log("in use effect")
     async function fetchData() {
       try {
+        console.log("in fetch data")
         setIsFetching(true)
         const { data } = await axios(productsApiUrl)
         setProducts(data.products)
@@ -39,7 +42,7 @@ export default function App() {
     if(products.length == 0) {
       setError("no products found in response")
     }
-  })
+  }, [])
 
   const handleOnToggle = () => {
     if(isOpen) {
@@ -50,6 +53,7 @@ export default function App() {
   }
 
   const handleAddItemToCart = (productId) => {
+    // console.log(shoppingCart)
     var itemIndex = -1
     // look if product already in shopping cart
     for (let i = 0; i < shoppingCart.length; i++) {
@@ -59,15 +63,21 @@ export default function App() {
     }
     // not in cart, add new product in cart
     if (itemIndex == -1) {
+      console.log("not in cart")
       var newItem = {
         itemId: productId,
         quantity: 1
       }
+      console.log(newItem)
+      
+      // setShoppingCart(newShoppingCart)
       setShoppingCart([...shoppingCart, newItem])
+      console.log("shopping cart state", shoppingCart)
     // in cart, increase product quantity
     } else {
-      shoppingCart[i].quantity += 1
+      shoppingCart[itemIndex].quantity += 1
     }
+    console.log(shoppingCart)
     // add product price to total price
     total += products[productId].price
   }
@@ -110,7 +120,7 @@ export default function App() {
           <Navbar />
           <Sidebar handleOnToggle={handleOnToggle} handleOnCheckoutFormChange={handleOnCheckoutFormChange} handleOnSubmitCheckoutForm={handleOnSubmitCheckoutForm}/>
           <Routes>
-            <Route path="/" element={<Home products={products} handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart}/>} />
+            <Route path="/" element={<Home shoppingCart={shoppingCart} products={products} handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart}/>} />
             <Route path="product/:productId" element={<ProductDetail shoppingCart={shoppingCart} handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart}/>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
