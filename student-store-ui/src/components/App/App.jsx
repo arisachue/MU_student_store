@@ -25,15 +25,32 @@ export default function App() {
   const [total, setTotal] = useState(0)
   const [checkoutMessage, setCheckoutMessage] = useState("")
   const [search, setSearch] = useState("")
+  const [category, setCategory] = useState("all")
 
-  useEffect(() => {
+
+  useEffect(async () => {
     console.log("in use effect")
     async function fetchData() {
       try {
         console.log("in fetch data")
         setIsFetching(true)
-        const { data } = await axios(productsApiUrl)
-        setProducts(data.products)
+        var { data } = await axios(productsApiUrl)
+        console.log("axois data", data.products)
+        const allProducts = data.products
+        setProducts(allProducts)
+        console.log("now products", products)
+        if (category != "all") {
+          console.log("in category filtering")
+          console.log(category)
+          var filteredProducts = []
+          for (let i = 0; i < products.length; i++) {
+            var curProductCategory = products[i].category
+            if (curProductCategory == category) {
+              filteredProducts.push(products[i])
+            }
+          }
+          setProducts(filteredProducts)
+        }
         if (search.length > 0) {
           var filteredProducts = []
           for (let i = 0; i < products.length; i++) {
@@ -42,6 +59,7 @@ export default function App() {
               filteredProducts.push(products[i])
             }
           }
+          setProducts(filteredProducts)
         }
       } catch (err) {
         setError(err)
@@ -54,7 +72,7 @@ export default function App() {
     if(products.length == 0) {
       setError("no products found in response")
     }
-  }, [search])
+  }, [search, category])
 
   const handleOnToggle = () => {
     if(isOpen) {
@@ -183,6 +201,11 @@ export default function App() {
     setSearch(newSearch.toLowerCase())
   }
 
+  const handleCategoryChange = (curCategory) => {
+    console.log("clicked category", curCategory)
+    setCategory(curCategory)
+  }
+
   return (
     <div className="app">
       <BrowserRouter>
@@ -191,7 +214,7 @@ export default function App() {
           <Navbar />
           <Sidebar checkoutMessage={checkoutMessage} total={total} handleOnToggle={handleOnToggle} handleOnCheckoutFormChange={handleOnCheckoutFormChange} handleOnSubmitCheckoutForm={handleOnSubmitCheckoutForm} checkoutForm={checkoutForm} products={products} shoppingCart={shoppingCart} isOpen={isOpen}/>
           <Routes>
-            <Route path="/" element={<Home handleOnSearchChange={handleOnSearchChange} shoppingCart={shoppingCart} products={products} handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart}/>} />
+            <Route path="/" element={<Home handleCategoryChange={handleCategoryChange} handleOnSearchChange={handleOnSearchChange} shoppingCart={shoppingCart} products={products} handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart}/>} />
             <Route path="/products/:productId" element={<ProductDetail products={products} shoppingCart={shoppingCart} handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart}/>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
