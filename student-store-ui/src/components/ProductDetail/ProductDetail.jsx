@@ -19,7 +19,7 @@ export default function ProductDetail(props) {
     }
   }
 
-  var quantity = -1
+  var quantity = null
   for (let i = 0; i < props.shoppingCart.length; i++) {
     if(props.shoppingCart[i].itemId == productId) {
       quantity = props.shoppingCart[i].quantity
