@@ -1,16 +1,24 @@
 .hero {
     display: flex;
-    background-color: lightslategray;
+    flex-direction: column;
+    background-color: rgba(245, 245, 245, 0.808);
     justify-content: center;
-    align-items: center;
+    align-items: right;
+    padding: 2rem 2rem 2rem 2rem;
+    border-radius: 40px;
+    width: 87%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    color: #1E4359;
 }
 
-.intro {
-    padding: 2rem 2rem 2rem 2rem;
+
+.heading {
+    display: flex;
 }
 
 .hero-img {
-    margin: 0 2rem 0 0;
-    width: 50px;
-    height: 50px;
+    margin: 2rem 2rem 0 2rem;
+    width: 100px;
+    height: 100px;
 }

@@ -1,9 +1,27 @@
 .sidebar {
     height: 100%;
     position: fixed;
-    background-color: lightpink;
-    width: 100px;
+    background-color: #db999cd1;
+    width: 60px;
+    border-radius: 5px;
 }
 .open {
     width: 400px;
+}
+
+.toggle-button {
+    margin: 20px 0 0 15px;
+    background-color: transparent;
+    border: none;
+    
+}
+
+.arrow-img {
+    width: 19px;
+    height: 30px;
+}
+
+.button-open {
+    transform: rotateY(180deg);
+    margin-left: 85%;
 }

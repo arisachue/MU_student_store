@@ -25,7 +25,7 @@ export default function ShoppingCart(props) {
         </div>
       ))
     }
-    <p className="total-price">{props.total}</p>
+    <p className="total-price">${Number(props.total).toFixed(2)}</p>
     </div>
   )
 }

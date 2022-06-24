@@ -2,10 +2,28 @@
     width: 100%;
     height: 300px;
     object-fit: cover;
-    margin: auto;
+    border-radius: 10px;
 }
 
 .product-card {
+    height: 440px;
+    background-color: #db999cd1;
+    padding: 10px 10px 10px 10px;
+    color: #1E4359;
+    border-radius: 5px;
+}
+
+.inProductView {
     height: 500px;
-    border: solid;
+}
+
+.button-icon {
+    height: 13px;
+    width: 10px;
+    margin: auto;
+}
+
+.add, .remove {
+    border-radius: 50%;
+    border: none;
 }
