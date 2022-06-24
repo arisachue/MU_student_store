@@ -10,19 +10,20 @@ import axios from 'axios';
 import "./App.css"
 
 export default function App() {
-  var basicUser = {
-    name: "arisa",
-    email: "arisa"
-  }
+  // var basicUser = {
+  //   name: "",
+  //   email: ""
+  // }
   const productsApiUrl = "https://codepath-store-api.herokuapp.com/store"
-  var total = 0
 
   const [products, setProducts] = useState([])
   const [isFetching, setIsFetching] = useState(false)
   const [error, setError] = useState("")
   const [isOpen, setIsOpen] = useState(false)
   const [shoppingCart, setShoppingCart] = useState([])
-  const [checkoutForm, setCheckoutForm] = useState(basicUser)
+  const [checkoutForm, setCheckoutForm] = useState({})
+  const [total, setTotal] = useState(0)
+  const [checkoutMessage, setCheckoutMessage] = useState("")
 
   useEffect(() => {
     console.log("in use effect")
@@ -61,6 +62,10 @@ export default function App() {
         itemIndex = i
       }
     }
+    var newShoppingCart = []
+    for (let i = 0; i < shoppingCart.length; i++) {
+      newShoppingCart.push(shoppingCart[i])
+    }
     // not in cart, add new product in cart
     if (itemIndex == -1) {
       console.log("not in cart")
@@ -69,17 +74,23 @@ export default function App() {
         quantity: 1
       }
       console.log(newItem)
-      
-      // setShoppingCart(newShoppingCart)
-      setShoppingCart([...shoppingCart, newItem])
+      newShoppingCart.push(newItem)
+      // setShoppingCart([...shoppingCart, newItem])
       console.log("shopping cart state", shoppingCart)
     // in cart, increase product quantity
     } else {
-      shoppingCart[itemIndex].quantity += 1
+      newShoppingCart[itemIndex].quantity += 1
     }
+    setShoppingCart(newShoppingCart)
     console.log(shoppingCart)
     // add product price to total price
-    total += products[productId].price
+    itemIndex = -1
+    for (let i = 0; i < products.length; i++) {
+        if (products[i].id == productId) {
+            itemIndex = i
+        }
+    }
+    setTotal(total + products[itemIndex].price)
   }
 
   const handleRemoveItemFromCart = (productId) => {
@@ -90,26 +101,56 @@ export default function App() {
         itemIndex = i
       }
     }
+    var newShoppingCart = []
+    for (let i = 0; i < shoppingCart.length; i++) {
+      newShoppingCart.push(shoppingCart[i])
+    }
     // remove item if only exist
     if (itemIndex > -1) {
-      shoppingCart[i].quantity -= 0
+      newShoppingCart[itemIndex].quantity -= 1
       // remove item from shopping cart
-      if (shoppingCart[i].quantity == 0) {
-        shoppingCart.splice(i, 1)
+      if (newShoppingCart[itemIndex].quantity == 0) {
+        newShoppingCart.splice(itemIndex, 1)
       }
     }
+    setShoppingCart(newShoppingCart)
+    // subtract product price to total price
+    itemIndex = -1
+    for (let i = 0; i < products.length; i++) {
+        if (products[i].id == productId) {
+            itemIndex = i
+        }
+    }
+    setTotal(total + products[itemIndex].price)
   }
   // update checkoutForm object for specific input
-  const handleOnCheckoutFormChange = (name, value) => {
-    setCheckoutForm({...checkoutForm, name: value})
+  const handleOnCheckoutFormChange = (event) => {
+    var key = event.target.name
+    var val = event.target.value
+    var newCheckoutForm = {
+      name: checkoutForm.name,
+      email: checkoutForm.email
+    }
+    newCheckoutForm.key = val
+    setCheckoutForm(newCheckoutForm)
   }
   
   const handleOnSubmitCheckoutForm = () => {
+    console.log("in check out button onclick")
     var newOrder = {
       user: checkoutForm,
       shoppingCart: shoppingCart
     }
-    axios.post(productsApiUrl, newOrder)
+    try {
+      axios.post(productsApiUrl, newOrder)
+    } catch (err) {
+      setCheckoutMessage(err)
+    }
+    if (checkoutMessage == "") {
+      setCheckoutMessage("Success!")
+      setShoppingCart([])
+      setCheckoutForm({})
+    } 
   }
 
   return (
@@ -118,7 +159,7 @@ export default function App() {
         <main>
           {/* YOUR CODE HERE! */}
           <Navbar />
-          <Sidebar handleOnToggle={handleOnToggle} handleOnCheckoutFormChange={handleOnCheckoutFormChange} handleOnSubmitCheckoutForm={handleOnSubmitCheckoutForm}/>
+          <Sidebar checkoutMessage={checkoutMessage} total={total} handleOnToggle={handleOnToggle} handleOnCheckoutFormChange={handleOnCheckoutFormChange} handleOnSubmitCheckoutForm={handleOnSubmitCheckoutForm} checkoutForm={checkoutForm} products={products} shoppingCart={shoppingCart} isOpen={isOpen}/>
           <Routes>
             <Route path="/" element={<Home shoppingCart={shoppingCart} products={products} handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart}/>} />
             <Route path="product/:productId" element={<ProductDetail shoppingCart={shoppingCart} handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart}/>} />
