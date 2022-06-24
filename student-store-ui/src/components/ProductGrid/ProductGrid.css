@@ -1,4 +1,4 @@
 .product-grid {
     display: grid;
-    height: 4000px;
+    grid-template-columns: auto auto auto;
 }

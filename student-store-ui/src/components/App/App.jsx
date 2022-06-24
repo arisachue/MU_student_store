@@ -10,10 +10,10 @@ import axios from 'axios';
 import "./App.css"
 
 export default function App() {
-  // var basicUser = {
-  //   name: "",
-  //   email: ""
-  // }
+  var basicUser = {
+    name: "",
+    email: ""
+  }
   const productsApiUrl = "https://codepath-store-api.herokuapp.com/store"
 
   const [products, setProducts] = useState([])
@@ -21,9 +21,10 @@ export default function App() {
   const [error, setError] = useState("")
   const [isOpen, setIsOpen] = useState(false)
   const [shoppingCart, setShoppingCart] = useState([])
-  const [checkoutForm, setCheckoutForm] = useState({})
+  const [checkoutForm, setCheckoutForm] = useState(basicUser)
   const [total, setTotal] = useState(0)
   const [checkoutMessage, setCheckoutMessage] = useState("")
+  const [search, setSearch] = useState("")
 
   useEffect(() => {
     console.log("in use effect")
@@ -33,17 +34,27 @@ export default function App() {
         setIsFetching(true)
         const { data } = await axios(productsApiUrl)
         setProducts(data.products)
+        if (search.length > 0) {
+          var filteredProducts = []
+          for (let i = 0; i < products.length; i++) {
+            var curProductName = products[i].name.toLowerCase()
+            if (curProductName.includes(search)) {
+              filteredProducts.push(products[i])
+            }
+          }
+        }
       } catch (err) {
         setError(err)
       }
     }
     fetchData()
     setIsFetching(false)
+    
 
     if(products.length == 0) {
       setError("no products found in response")
     }
-  }, [])
+  }, [search])
 
   const handleOnToggle = () => {
     if(isOpen) {
@@ -127,30 +138,49 @@ export default function App() {
   const handleOnCheckoutFormChange = (event) => {
     var key = event.target.name
     var val = event.target.value
+    console.log("key", key)
+    console.log("val", val)
     var newCheckoutForm = {
       name: checkoutForm.name,
       email: checkoutForm.email
     }
-    newCheckoutForm.key = val
+    newCheckoutForm[key] = val
+    console.log(newCheckoutForm)
     setCheckoutForm(newCheckoutForm)
+    console.log("new checkout form", checkoutForm)
   }
   
   const handleOnSubmitCheckoutForm = () => {
     console.log("in check out button onclick")
+    console.log(checkoutForm)
     var newOrder = {
       user: checkoutForm,
       shoppingCart: shoppingCart
     }
-    try {
-      axios.post(productsApiUrl, newOrder)
-    } catch (err) {
-      setCheckoutMessage(err)
-    }
-    if (checkoutMessage == "") {
+    axios.post(productsApiUrl, newOrder).then(function (response) {
+      console.log(response)
       setCheckoutMessage("Success!")
       setShoppingCart([])
-      setCheckoutForm({})
-    } 
+      setCheckoutForm(basicUser)
+    }).catch(function (error) {
+      console.log(error)
+      setCheckoutMessage(error)
+    })
+    // try {
+    //   axios.post(productsApiUrl, newOrder)
+    // } catch (err) {
+    //   setCheckoutMessage(err)
+    // }
+    // if (checkoutMessage == "") {
+    //   setCheckoutMessage("Success!")
+    //   setShoppingCart([])
+    //   setCheckoutForm({})
+    // } 
+  }
+
+  const handleOnSearchChange = (event) => {
+    var newSearch = event.target.value
+    setSearch(newSearch.toLowerCase())
   }
 
   return (
@@ -161,8 +191,8 @@ export default function App() {
           <Navbar />
           <Sidebar checkoutMessage={checkoutMessage} total={total} handleOnToggle={handleOnToggle} handleOnCheckoutFormChange={handleOnCheckoutFormChange} handleOnSubmitCheckoutForm={handleOnSubmitCheckoutForm} checkoutForm={checkoutForm} products={products} shoppingCart={shoppingCart} isOpen={isOpen}/>
           <Routes>
-            <Route path="/" element={<Home shoppingCart={shoppingCart} products={products} handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart}/>} />
-            <Route path="product/:productId" element={<ProductDetail shoppingCart={shoppingCart} handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart}/>} />
+            <Route path="/" element={<Home handleOnSearchChange={handleOnSearchChange} shoppingCart={shoppingCart} products={products} handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart}/>} />
+            <Route path="/products/:productId" element={<ProductDetail products={products} shoppingCart={shoppingCart} handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart}/>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
