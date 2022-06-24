@@ -6,6 +6,7 @@ export default function ShoppingCart(props) {
   if (shoppedItems.length == 0) {
     return <p className="notification">No items added to cart yet. Start shopping now!</p>
   }
+
   const findName = (itemId) => {
     var itemIndex = -1
     for (let i = 0; i < props.products.length; i++) {
@@ -15,16 +16,37 @@ export default function ShoppingCart(props) {
     }
     return props.products[itemIndex].name
   }
+
+  const findPrice = (itemId) => {
+    var itemIndex = -1
+    for (let i = 0; i < props.products.length; i++) {
+        if (props.products[i].id == itemId) {
+            itemIndex = i
+        }
+    }
+    return props.products[itemIndex].price
+  }
+
   return (
     <div className="shopping-cart">
-    {
-      shoppedItems.map((shoppedItem) => (
-        <div key={shoppedItem.itemId}>
-            <p className="card-product-name">{findName(shoppedItem.itemId)}</p>
-            <p className="card-product-quantity">{shoppedItem.quantity}</p>
+      <div className="cart">
+        <div className="cart-heading">
+          <p>Name</p>
+          <p>Unit Price</p>
+          <p>Quantity</p>
+          <p>Cost</p>
         </div>
-      ))
-    }
+        {
+          shoppedItems.map((shoppedItem) => (
+            <div key={shoppedItem.itemId} className="cart-item">
+                <p className="card-product-name">{findName(shoppedItem.itemId)}</p>
+                <p className="card-product-price">${Number(findPrice(shoppedItem.itemId)).toFixed(2)}</p>
+                <p className="card-product-quantity">{shoppedItem.quantity}</p>
+                <p className="card-product-cost">${Number((shoppedItem.quantity)*(findPrice(shoppedItem.itemId))).toFixed(2)}</p>
+            </div>
+          ))
+        }
+      </div>
     <p className="total-price">${Number(props.total).toFixed(2)}</p>
     </div>
   )

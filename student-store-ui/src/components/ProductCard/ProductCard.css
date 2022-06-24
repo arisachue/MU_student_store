@@ -7,7 +7,7 @@
 
 .product-card {
     height: 440px;
-    background-color: #db999cd1;
+    background-color: #db999c;
     padding: 10px 10px 10px 10px;
     color: #1E4359;
     border-radius: 5px;
@@ -18,12 +18,26 @@
 }
 
 .button-icon {
-    height: 13px;
-    width: 10px;
-    margin: auto;
+    height: 15px;
+    width: 15px;
+    /* display: flex; */
+    /* margin: auto; */
+    border: none;
+    margin: 4px 0 0 0;
+    /* position: relative; */
+    filter: opacity(0.6);
 }
 
 .add, .remove {
-    border-radius: 50%;
+    margin: 0 5px 0 0;
+    /* border-radius: 50%; */
     border: none;
+    /* display: flex;
+    flex-direction: row;
+    justify-content: center; */
+    /* padding: 5px; */
+    border: none;
+    border-radius: 50%;
+    /* text-align: center; */
+    background-color: #faebe6;
 }

@@ -1,9 +1,11 @@
 .sidebar {
     height: 100%;
     position: fixed;
-    background-color: #db999cd1;
+    background-color: #db999c;
     width: 60px;
     border-radius: 5px;
+    z-index: 10;
+    color: #152e3d;
 }
 .open {
     width: 400px;
@@ -19,6 +21,7 @@
 .arrow-img {
     width: 19px;
     height: 30px;
+    filter: opacity(0.6)
 }
 
 .button-open {

@@ -1,0 +1,5 @@
+.checkout-form {
+    padding: 8px;
+    display: flex;
+    column-gap: 7px;
+}

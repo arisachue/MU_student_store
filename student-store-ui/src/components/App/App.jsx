@@ -153,7 +153,7 @@ export default function App() {
             itemIndex = i
         }
     }
-    setTotal(total + products[itemIndex].price)
+    setTotal(total - products[itemIndex].price)
   }
   // update checkoutForm object for specific input
   const handleOnCheckoutFormChange = (event) => {
