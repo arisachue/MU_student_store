@@ -1,5 +1,28 @@
 .checkout-form {
+    color: #1E4359;
+}
+
+.checkout-input {
     padding: 8px;
     display: flex;
     column-gap: 7px;
+}
+
+.success, .error {
+    margin: 12px;
+}
+
+.checkout-form-input, .checkout-button {
+    height: 40px;
+    border-radius: 5px;
+    color: #1E4359;
+}
+
+.checkout-button {
+    background-color: #faebe6;
+}
+
+.checkout-button:hover {
+    background-color: #db999c;
+    cursor: pointer;
 }

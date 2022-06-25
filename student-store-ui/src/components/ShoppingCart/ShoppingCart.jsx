@@ -47,7 +47,20 @@ export default function ShoppingCart(props) {
           ))
         }
       </div>
-    <p className="total-price">${Number(props.total).toFixed(2)}</p>
+      <div className="money-calc">
+        <div className="subtotal">
+          <p>Subtotal</p>
+          <p className="total-price">${Number(props.total).toFixed(2)}</p>
+        </div>
+        <div className="taxes">
+          <p>Taxes</p>
+          <p>${Number(props.total*0.0875).toFixed(2)}</p>
+        </div>
+        <div className="total">
+          <p>Total</p>
+          <p>${Number(props.total*1.0875).toFixed(2)}</p>
+        </div>
+      </div>
     </div>
   )
 }

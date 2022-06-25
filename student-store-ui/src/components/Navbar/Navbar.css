@@ -5,7 +5,18 @@
     width: 100%;
     display: flex;
     justify-content: space-evenly;
+    /* align-items: center; */
     background-color: rgba(245, 245, 245, 0.808);
     height: 50px;
     color: #1E4359;
+}
+
+a {
+    align-self: center;
+    color: #1E4359;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #db999c;
 }

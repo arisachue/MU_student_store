@@ -2,3 +2,7 @@
     margin-top: 10%;
     height: 80%;
 }
+
+.logo-img:hover {
+    filter: opacity(0.5);
+}

@@ -5,5 +5,5 @@
     grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
     column-gap: 25px;
     row-gap: 25px;
-    padding: 0 1rem 1rem 1rem;
+    padding: 0 10rem 0 10rem;
 }

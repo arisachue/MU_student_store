@@ -17,6 +17,10 @@ export default function Sidebar(props) {
           <button className={buttonProperties} onClick={props.handleOnToggle}>
             <img className="arrow-img" src="../../src/arrowicon.png" alt="arrow icon" />
           </button>
+          <div className="shopping-cart-heading">
+            <img className="shopping-img" src="../../src/shoppingcarticon.png" alt="shopping cart icon" />
+            <p>Shopping Cart</p>
+          </div>
           <ShoppingCart total={props.total} products={props.products} shoppingCart={props.shoppingCart} isOpen={props.isOpen}/>
           <CheckoutForm checkoutMessage={props.checkoutMessage} isOpen={props.isOpen} shoppingCart={props.shoppingCart} checkoutForm={props.checkoutForm} handleOnCheckoutFormChange={props.handleOnCheckoutFormChange} handleOnSubmitCheckoutForm={props.handleOnSubmitCheckoutForm}/>
         </>

@@ -78,6 +78,7 @@ export default function App() {
   }, [search, category])
 
   const handleOnToggle = () => {
+    setCheckoutMessage("")
     if(isOpen) {
       setIsOpen(false)
     } else {

@@ -4,7 +4,7 @@
     background-color: rgba(245, 245, 245, 0.808);
     justify-content: center;
     align-items: right;
-    padding: 2rem 2rem 2rem 2rem;
+    padding: 2rem 2rem 2rem 5rem;
     border-radius: 40px;
     width: 87%;
     margin-top: 2rem;
@@ -12,13 +12,24 @@
     color: #1E4359;
 }
 
+.intro {
+    align-self: baseline;
+    font-size: 60px;
+}
+
+h3 {
+    margin: 5px;
+}
 
 .heading {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .hero-img {
-    margin: 2rem 2rem 0 2rem;
-    width: 100px;
-    height: 100px;
+    margin: 2rem auto 2rem auto;
+    width: 150px;
+    height: 150px;
+    filter: opacity(0.8);
 }

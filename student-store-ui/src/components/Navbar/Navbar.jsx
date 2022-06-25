@@ -6,10 +6,9 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <Logo />
-      <p>Home</p>
-      <p>About Us</p>
-      <p>Contact Us</p>
-      <p>Buy Now</p>
+      <a href="#buy-heading">Buy Now</a>
+      <a href="#about-heading">About Us</a>
+      <a href="#contact-heading">Contact Us</a>
     </nav>
   )
 }

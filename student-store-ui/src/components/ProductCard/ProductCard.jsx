@@ -25,15 +25,16 @@ export default function ProductCard(props) {
         </div>
         <p className="product-name">{props.product.name}</p>
         <p className="product-price">${Number(props.product.price).toFixed(2)}</p>
-        <button className="add" onClick={() => props.handleAddItemToCart(props.productId)}>
-          <img className="button-icon" src="../../src/plusicon.png" alt="plus icon" />
-        </button>
-        <button className="remove" onClick={() => props.handleRemoveItemFromCart(props.productId)}>
-          <img className="button-icon" src="../../src/minusicon.png" alt="minuc icon" />
-        </button>
-        <p className="product-quantity">{props.quantity}</p>
+        <div className="buttons-quantity">
+          <button className="add" onClick={() => props.handleAddItemToCart(props.productId)}>
+            <img className="button-icon" src="../../src/plusicon.png" alt="plus icon" />
+          </button>
+          <button className="remove" onClick={() => props.handleRemoveItemFromCart(props.productId)}>
+            <img className="button-icon" src="../../src/minusicon.png" alt="minuc icon" />
+          </button>
+          <p className="product-quantity">{props.quantity}</p>
+        </div>
       </div>
-      
     </div>
   )
 }
