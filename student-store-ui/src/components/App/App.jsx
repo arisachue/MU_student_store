@@ -14,7 +14,7 @@ export default function App() {
     name: "",
     email: ""
   }
-  const productsApiUrl = "https://codepath-store-api.herokuapp.com/store"
+  const productsApiUrl = "http://localhost:3001/store"
 
   const [products, setProducts] = useState([])
   const [isFetching, setIsFetching] = useState(false)
