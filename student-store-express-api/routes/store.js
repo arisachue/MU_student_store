@@ -14,11 +14,12 @@ router.get("/", async (req, res, next) => {
     }
 })
 
-// display storage database
-router.get("/storage", async (req, res, next) => {
+// display purchases database
+router.get("/storagepurchase", async (req, res, next) => {
     try {
-      const curStorage = await Store.getStorage()
-      res.status(200).json({ curStorage })
+      const purchases = await Store.listPurchases()
+      console.log(purchases)
+      res.status(200).json({ purchases })
     } catch (err) {
       next(err)
     }

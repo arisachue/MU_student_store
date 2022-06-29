@@ -4,6 +4,7 @@ import Sidebar from "../Sidebar/Sidebar"
 import Home from "../Home/Home"
 import ProductDetail from "../ProductDetail/ProductDetail"
 import NotFound from "../NotFound/NotFound"
+import PurchaseOrders from "../PurchaseOrders/PurchaseOrders"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { useState, useEffect } from "react"
 import axios from 'axios';
@@ -15,6 +16,7 @@ export default function App() {
     email: ""
   }
   const productsApiUrl = "http://localhost:3001/store"
+  const purchaseApiUrl = "http://localhost:3001/store/storagepurchase"
 
   const [products, setProducts] = useState([])
   const [isFetching, setIsFetching] = useState(false)
@@ -26,6 +28,7 @@ export default function App() {
   const [checkoutMessage, setCheckoutMessage] = useState("")
   const [search, setSearch] = useState("")
   const [category, setCategory] = useState("all")
+  const [purchases, setPurchases] = useState([])
 
 
   useEffect(async () => {
@@ -35,7 +38,7 @@ export default function App() {
         console.log("in fetch data")
         setIsFetching(true)
         var { data } = await axios(productsApiUrl)
-        console.log("axois data", data.products)
+        console.log("axois data", data)
         var allProducts = data.products
         // setProducts(allProducts)
         console.log("now products", products)
@@ -75,7 +78,14 @@ export default function App() {
     if(products.length == 0) {
       setError("no products found in response")
     }
-  }, [search, category])
+    // get purchases
+    var { data } = await axios(purchaseApiUrl)
+    console.log("current purchases", data)
+    if (data.purchases != null) {
+      setPurchases(data.purchases)
+    } 
+    
+  }, [search, category, checkoutForm])
 
   const handleOnToggle = () => {
     setCheckoutMessage("")
@@ -222,6 +232,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home handleCategoryChange={handleCategoryChange} handleOnSearchChange={handleOnSearchChange} shoppingCart={shoppingCart} products={products} handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart}/>} />
             <Route path="/products/:productId" element={<ProductDetail products={products} shoppingCart={shoppingCart} handleAddItemToCart={handleAddItemToCart} handleRemoveItemFromCart={handleRemoveItemFromCart}/>} />
+            <Route path="/purchases" element={<PurchaseOrders purchases={purchases}/>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

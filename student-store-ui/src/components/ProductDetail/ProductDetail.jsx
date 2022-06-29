@@ -10,7 +10,7 @@ export default function ProductDetail(props) {
   const [product, setProduct] = useState({})
   const [isFetching, setIsFetching] = useState(false)
   const { productId } = useParams()
-  const productsApiUrl = "https://codepath-store-api.herokuapp.com/store"
+  const productsApiUrl = "http://localhost:3001/store"
   
   var isValid = false
   for (let i = 0; i < props.products.length; i++) {

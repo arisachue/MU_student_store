@@ -14,8 +14,6 @@ app.use(morgan("tiny"))
 app.use(cors())
 app.use("/store", storeRouter)
 
-console.log("hi")
-
 app.get("/", (req, res) => {
     res.status(200).send({"ping": "pong"})
 })
