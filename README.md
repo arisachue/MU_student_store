@@ -6,7 +6,9 @@ Selling merchandise in the modern era requires digital solutions. For this proje
 
 Demonstration Video:
 
-https://user-images.githubusercontent.com/62860690/175762881-6046139b-dd61-4be9-b1e2-bb9fcd0c3ffc.mp4
+
+https://user-images.githubusercontent.com/62860690/176509975-49c9a941-8765-4992-a1b7-06f222c3575e.mp4
+
 
 
 ### Application Features
