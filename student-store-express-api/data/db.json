@@ -145,5 +145,41 @@
       "price": 999.99
     }
   ],
-  "purchases": []
+  "purchases": [
+    {
+      "id": 1,
+      "name": "Arisa",
+      "email": "Arisa@gmail.com",
+      "total": 4.69,
+      "time": "2022-06-29T05:28:09.646Z"
+    },
+    {
+      "id": 2,
+      "name": "Arisa",
+      "email": "Arisa@gmail.com",
+      "total": 4.69,
+      "time": "2022-06-29T05:28:36.945Z"
+    },
+    {
+      "id": 3,
+      "name": "Arisa",
+      "email": "Arisa@gmail.com",
+      "total": 4.69,
+      "time": "2022-06-29T05:29:26.095Z"
+    },
+    {
+      "id": 4,
+      "name": "Arisa",
+      "email": "Arisa@gmail.com",
+      "total": 4.69,
+      "time": "2022-06-29T05:30:24.271Z"
+    },
+    {
+      "id": 5,
+      "name": "Arisa",
+      "email": "Arisa@gmail.com",
+      "total": 4.69,
+      "time": "2022-06-29T05:32:29.727Z"
+    }
+  ]
 }

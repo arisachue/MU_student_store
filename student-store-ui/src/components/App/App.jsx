@@ -177,13 +177,15 @@ export default function App() {
     console.log(checkoutForm)
     var newOrder = {
       user: checkoutForm,
-      shoppingCart: shoppingCart
+      shoppingCart: shoppingCart,
+      total: total
     }
     axios.post(productsApiUrl, newOrder).then(function (response) {
       console.log(response)
       setCheckoutMessage("Success!")
       setShoppingCart([])
       setCheckoutForm(basicUser)
+      setTotal(0)
     }).catch(function (error) {
       console.log(error)
       setCheckoutMessage(error)
